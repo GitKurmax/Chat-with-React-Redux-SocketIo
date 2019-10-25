@@ -1,0 +1,22 @@
+.main-input-wrapper {
+    position: relative;
+    width: 80%;
+}
+
+#input-file {
+    display: none;
+}
+
+.choose-file {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    background-image: url('../../assets/add.png');
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: contain;
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    cursor: pointer;
+}
