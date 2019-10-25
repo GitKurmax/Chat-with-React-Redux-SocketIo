@@ -63,3 +63,8 @@
 img {
     width: 50px;
 }
+
+.main-content-wrapper {
+    display: flex;
+    flex-direction: row;
+}

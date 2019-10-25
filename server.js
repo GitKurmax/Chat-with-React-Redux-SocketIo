@@ -1,20 +1,23 @@
 var app = require('express')();
 var http = require('http').createServer(app);
 var io = require('socket.io')(http);
-
+let users = [];
 app.get('/', function (req, res) {
     // res.sendFile(__dirname + '/index.html');
 });
 
 io.on('connection', function(socket) {
-    socket.on('connected', function() {
-      socket.broadcast.emit('new user connected');
+      socket.on('connected', function() {
+      users.push({userId:socket.id});
+      io.emit('new user connected', users);
     });
-
+ 
     console.log('a user connected');
 
     socket.on('disconnect', function(){
-        console.log('user disconnected');
+      let newUsers = users.filter((user) => user.userId !== socket.id);
+      io.emit('user disconnected', newUsers);
+      users = newUsers;
       });
       
     socket.on('message', function(message){
@@ -22,7 +25,6 @@ io.on('connection', function(socket) {
     });
 
     socket.on('files', function(data){
-        console.log(data);
         socket.broadcast.emit('files', { for: 'everyone', data });
     });
   });

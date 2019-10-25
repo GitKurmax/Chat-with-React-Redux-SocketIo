@@ -1,0 +1,6 @@
+.connected-users-wrapper {
+    width: 30%;
+    min-width: 250px;
+    border-left: 1px solid #d3d3d3;
+    padding: 0 20px;
+}

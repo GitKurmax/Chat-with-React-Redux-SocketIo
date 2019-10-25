@@ -3,14 +3,20 @@ export const CHANGE_INPUT_VALUE = 'CHANGE_INPUT_VALUE';
 export const ADD_MESSAGE = 'ADD_MESSAGE';
 export const RECEIVE_FILE = 'RECEIVE_FILE';
 export const USER_CONNECTED = 'USER_CONNECTED';
+export const USER_DISCONNECTED = 'USER_DISCONNECTED'
 
 let socket;
 
 export function connectToSocket(io) {
     return (dispatch) => {
         socket = io('http://localhost:3100');
-        socket.on('new user connected', () => {
-            dispatch(userConnected());
+        socket.on('new user connected', (user) => {
+            console.log(user)
+            dispatch(userConnected(user));
+        });
+
+        socket.on('user disconnected', (user) => {
+            dispatch(userDisconnected(user));
         });
 
         socket.on('connect', () => {
@@ -80,8 +86,16 @@ export function receiveFile(data) {
     }
 }
 
-export function userConnected() {
+export function userConnected(user) {
     return  {
         type: USER_CONNECTED,
+        user
+    }
+}
+
+export function userDisconnected(user) {
+    return  {
+        type: USER_DISCONNECTED,
+        user
     }
 }

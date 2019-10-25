@@ -1,7 +1,7 @@
 const initialState = {
     message: '',
     chatMessages: [],
-    connected: false
+    users: []
 }
 
 export default function getDataReducer(state = initialState, action) {
@@ -28,10 +28,16 @@ export default function getDataReducer(state = initialState, action) {
             files: action.data
         }
 
-        case 'USER_CONNECTED': 
+        case 'USER_CONNECTED':
         return {
             ...state,
-            connected: true
+            users: [...action.user]
+        }
+
+        case 'USER_DISCONNECTED':
+        return {
+            ...state,
+            users: [...action.user]
         }
     }
      return state;
